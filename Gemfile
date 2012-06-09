@@ -33,7 +33,6 @@ group :test do
   gem 'rspec-rails', '2.10.0'
   gem 'capybara', '1.1.2'
   gem 'rb-fsevent', '~> 0.9.1', :require => false # gem 'rb-inotify', '0.8.8' // if Linux
-  gem 'growl', '1.0.3' # gem 'libnotify', '0.5.9' // if Linux
   gem 'guard-spork', '0.3.2'
   gem 'spork', '0.9.0'
   gem 'factory_girl_rails', '1.4.0'
