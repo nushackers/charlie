@@ -1,0 +1,35 @@
+#!/usr/bin/env ruby
+
+require "rubygems"
+require "bundler/setup"
+require "mailman"
+
+ENV["RAILS_ENV"] ||= "test"
+require File.dirname(__FILE__) + "/../config/environment"
+
+Mailman.config.ignore_stdin = true
+Mailman.config.logger = Logger.new File.expand_path("../../log/mailman_#{Rails.env}.log", __FILE__)
+
+if Rails.env == 'test'
+  Mailman.config.maildir = File.expand_path("../../tmp/test_maildir", __FILE__)
+else
+  Mailman.config.logger = Logger.new File.expand_path("../../log/mailman.log", __FILE__)
+  Mailman.config.poll_interval = 15
+  Mailman.config.pop3 = {
+    server: 'pop.gmail.com', port: 995, ssl: true,
+    username: MAILMAN_USER,
+    password: MAILMAN_PASSWORD
+  }
+end
+
+Mailman::Application.run do
+  from('%user%@linuxnus.org') do
+    IncomingMail.new(message, params).process(:command_parse)
+  end
+  to('someone_else@%domain%').subject('%interesting%') do
+    IncomingMail.new(message, params).process(:method_for_route_two)
+  end
+  default do
+    IncomingMail.new(message, params).process(:default)
+  end
+end
