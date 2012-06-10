@@ -5,6 +5,8 @@ gem "daemons", "~> 1.1.8"
 gem "mailman", "~> 0.5.1", require: false
 gem "maildir", "~> 2.0.0"
 gem "mail", "~> 2.4.4"
+gem "devise", "~> 2.1.0"
+gem "bootstrap-sass", "~> 2.0.3.1"
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'

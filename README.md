@@ -8,8 +8,6 @@ Installation
 ------------
 The normal Rails rules apply: pull the repository and run bundle. Charlie is set up to run with spork, guard and RSpec. 
 
-The Gemfile includes a few Mac-specific gems: growl and rb-fsevent. Remove these if they cause problems for you. 
-
 Commands (Case insensitive)
 --------
 
