@@ -29,6 +29,7 @@ Spork.prefork do
     # examples within a transaction, remove the following line or assign false
     # instead of true.
     config.use_transactional_fixtures = true
+    ActiveSupport::Dependencies.clear
 
     # If true, the base class of anonymous controllers will be inferred
     # automatically. This will be the default behavior in future versions of
@@ -39,6 +40,15 @@ end
 
 Spork.each_run do
   # This code will be run each time you run your specs.
-
+  load "#{Rails.root}/config/routes.rb" 
+  Dir["#{Rails.root}/app/**/*.rb"].each { |f| load f } 
 end
 
+
+def stub_env(new_env, &block)
+  original_env = Rails.env
+  Rails.instance_variable_set("@_env", ActiveSupport::StringInquirer.new(new_env))
+  block.call
+ensure
+  Rails.instance_variable_set("@_env", ActiveSupport::StringInquirer.new(original_env))
+end

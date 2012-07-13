@@ -1,5 +1,9 @@
 Charlie::Application.routes.draw do
-  devise_for :users
+  if Rails.env.production?
+    devise_for :users, :controllers => { :registrations => "registrations" }
+  else
+    devise_for :users
+  end
 
   root to: 'admin#home'
   # The priority is based upon order of creation:
